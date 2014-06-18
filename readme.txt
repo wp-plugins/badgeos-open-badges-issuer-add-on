@@ -1,4 +1,4 @@
-=== BadgeOS Open Badges Issuer Add-on ===
+=== Open Badges Issuer Add-on ===
 Contributors: mhawksey
 Tags: badge, badges, openbadges, credly, OBI, mozilla, open badges, achievement, badgeOS
 Requires at least: 3.5
