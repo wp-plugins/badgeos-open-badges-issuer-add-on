@@ -27,8 +27,9 @@ This plugin was developed using the [BadgeOS Boilerplate Add-On](https://github.
 
 
 1. First get and activate the free [BadgeOS plugin](http://wordpress.org/extend/plugins/badgeos/ "BadgeOS").
-2. Then upload the 'badgeos-open-badges-issuer' plugin via the 'Plugins' menu in WordPress (or upload to the '/wp-content/plugins/' directory).
-3. Activate the plugin through the 'Plugins' menu in WordPress
+1. Get and activate the free [JSON API plugin](http://wordpress.org/extend/plugins/json-api/ "JSON API").
+1. Then upload the 'badgeos-open-badges-issuer' plugin via the 'Plugins' menu in WordPress (or upload to the '/wp-content/plugins/' directory).
+1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
