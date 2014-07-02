@@ -45,6 +45,9 @@ This plugin was developed using the [BadgeOS Boilerplate Add-On](https://github.
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed missing from menu
+
 = 1.0.0 =
 * Intial release
 

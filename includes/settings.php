@@ -10,17 +10,13 @@ class BadgeOS_OpenBadgesIssuer_Settings {
 	 * Create BadgeOS Settings menus
 	 */
 	function plugin_menu() {
-
-		// Set minimum role setting for menus
-		$minimum_role = $badgeos_settings['minimum_role'];
-		
-		add_submenu_page( 'badgeos_badgeos', __( 'Open Badges Issuer Settings', 'badgeos_obi_issuer' ), __( 'Open Badges Issuer Settings', 'badgeos_obi_issuer' ), $minimum_role, 'open-badges-issuer', array(&$this, 'badgeos_obi_issuer_settings') );
-		add_submenu_page( 'badgeos_badgeos', __( 'Open Badges Issuer Log Entries', 'badgeos_obi_issuer' ), __( 'Open Badges Issuer Log Entries', 'badgeos_obi_issuer' ), $minimum_role, 'edit.php?post_type=open-badge-entry' );
+		add_submenu_page( 'badgeos_badgeos', __( 'Open Badges Issuer Settings', 'badgeos_obi_issuer' ), __( 'Open Badges Issuer Settings', 'badgeos_obi_issuer' ), badgeos_get_manager_capability(), 'open-badges-issuer', array(&$this, 'badgeos_obi_issuer_settings') );
+		add_submenu_page( 'badgeos_badgeos', __( 'Open Badges Issuer Log Entries', 'badgeos_obi_issuer' ), __( 'Open Badges Issuer Log Entries', 'badgeos_obi_issuer' ), badgeos_get_manager_capability(), 'edit.php?post_type=open-badge-entry' );
 	}
 	
 	function badgeos_obi_issuer_settings(){
-		$badgeos_settings = get_option( 'badgeos_settings' );
-		if (!current_user_can($badgeos_settings['minimum_role'])) {
+
+		if (!current_user_can(badgeos_get_manager_capability())) {
 			wp_die("You do not have sufficient permissions to access this page.");
 		}
 		
