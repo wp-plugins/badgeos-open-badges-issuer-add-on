@@ -12,7 +12,7 @@ class JSON_API_Badge_Controller {
 		$user_id = $uid[2];
 		$assertion = array();
 		if (isset($post_id)){
-			$base_url = site_url().'/'.get_option('json_api_base', 'api');
+			$base_url = home_url().'/'.get_option('json_api_base', 'api');
 			$submission = get_post($post_id);
 			$salt = "0ct3L";
 			$email = BadgeOS_OpenBadgesIssuer::registered_email($user_id);
@@ -47,7 +47,7 @@ class JSON_API_Badge_Controller {
 		global $json_api;
 		$post_id = $json_api->query->uid;
 		if (isset($post_id)){
-			$base_url = site_url().'/'.get_option('json_api_base', 'api');
+			$base_url = home_url().'/'.get_option('json_api_base', 'api');
 			$badge = get_post($post_id);
 			return array ( "name" => $badge->post_title,
   						   "description" => ($badge->post_content) ? html_entity_decode(strip_tags($badge->post_content), ENT_QUOTES, 'UTF-8') : "",
@@ -61,9 +61,10 @@ class JSON_API_Badge_Controller {
 							  'image',
 							  'email',
 							  'revocationList');
+							  
 		
-		$issuer = array("name" => get_option( 'badgeos_obi_issuer_org_name') ?: get_bloginfo( 'name', 'display' ),
-						"url" =>  get_option( 'badgeos_obi_issuer_org_url') ?: site_url());
+		$issuer = array("name" => ($org_name = get_option( 'badgeos_obi_issuer_org_name')) ? $org_name : get_bloginfo( 'name', 'display' ),
+						"url" =>  ($org_url = get_option( 'badgeos_obi_issuer_org_url')) ? $org_url : home_url());
 		
 		foreach($issuerFields as $field){
 			$val = get_option( 'badgeos_obi_issuer_org_'.$field);
@@ -74,8 +75,6 @@ class JSON_API_Badge_Controller {
 		
 		return $issuer;
 	}
-	
-	
 	public function achievements() {
 		global $blog_id, $json_api;
 		
@@ -87,7 +86,7 @@ class JSON_API_Badge_Controller {
 		}
 		$type[] = 'submission';
 		
-		$user_id = get_current_user_id();
+		//$user_id = get_current_user_id();
 		// Get the current user if one wasn't specified
 		if( ! $user_id ){
 			if ($json_api->query->user_id){
@@ -115,7 +114,6 @@ class JSON_API_Badge_Controller {
 		// Grab our earned badges (used to filter the query)
 		$earned_ids = badgeos_get_user_earned_achievement_ids( $user_id, $type );
 		$earned_ids = array_map('intval', $earned_ids);
-
 		// Query Achievements
 		$args = array(
 			'post_type'      =>	$type,
@@ -140,7 +138,6 @@ class JSON_API_Badge_Controller {
 		$base_url = site_url().'/'.get_option('json_api_base', 'api').'/badge/assertion/?uid=';
 		$pushed_badges = ( $pushed_items = get_user_meta( absint( $user_id ), '_badgeos_backpack_pushed' ) ) ? (array) $pushed_items : array();
 		while ( $achievement_posts->have_posts() ) : $achievement_posts->the_post();
-
 			$achievement_id = get_the_ID();
 			if (!in_array($achievement_id , $hidden)){
 				$uid = $achievement_id . "-" . get_post_time('U', true) . "-" . $user_id;
@@ -161,4 +158,3 @@ class JSON_API_Badge_Controller {
 					   "count" => $achievement_count);
 	}
 }
-?>

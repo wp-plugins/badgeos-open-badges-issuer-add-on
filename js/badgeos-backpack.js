@@ -1,4 +1,6 @@
 // JavaScript Document
+
+var badgeos = badgeos || {};
 // Returns the version of Internet Explorer or a -1
 // (indicating the use of another browser).
 //
@@ -31,6 +33,7 @@ jQuery(document).ready(function($){
 	$('.badgeos_backpack').live( 'click', function( event ) {
 		event.preventDefault();
 		$(this).attr("disabled", true);
+		console.log($(this).attr('data-uid'));
 		issueBadges([$(this).attr('data-uid')]);
 		/*OpenBadges.issue([$(this).attr('data-uid')], function(errors, successes) {
 			handle_backpack_response(errors, successes)
